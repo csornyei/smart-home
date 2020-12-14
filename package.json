@@ -4,7 +4,8 @@
   "description": "Simple custom smart home application for controlling DIY smart home devices",
   "main": "index.js",
   "scripts": {
-    "test": "node index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,16 @@
   "bugs": {
     "url": "https://github.com/csornyei/smart-home/issues"
   },
-  "homepage": "https://github.com/csornyei/smart-home#readme"
+  "homepage": "https://github.com/csornyei/smart-home#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "helmet": "^4.2.0",
+    "mongoose": "^5.11.7"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
 }
