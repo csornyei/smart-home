@@ -2,7 +2,26 @@
 <%- include('layout/navbar', {active: active}); -%>
 <div class="container"></div>
     <div class="row">
-        <h1>Simple Smart Home</h1>
+        <div class="col-sm-12">
+            <div class="row">
+                <h1>Simple Smart Home</h1>
+            </div>
+        </div>
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+            <div class="jumbotron">
+                <form>
+                    <h2>Led status</h2>
+                    <h3 id="led-status"> </h3>
+                    <div class="btn-group" role="group" aria-label="led-buttons">
+                        <button type="button" disabled class="btn btn-danger" id="led-button-off" >Turn off</button>
+                        <button type="button" disabled class="btn btn-success" id="led-button-on" >Turn on</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-sm-2"></div>
     </div>
+    <script src="/static/script.js"></script>
 </div>
 <%- include('layout/footer'); -%>
