@@ -18,7 +18,7 @@ app.use('/', mainRoutes);
 
 app.use('*', (req, res) => {
     res.status(404);
-    res.send('Page not found')
+    res.render('notfound')
 })
 
 const PORT = process.env.PORT || 8888;
