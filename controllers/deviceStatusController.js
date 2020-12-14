@@ -7,11 +7,18 @@ const createNewDeviceStatus = (ledStatus) => {
     }).save();
 }
 
-const getLastDeviceStatus = (ledStatus) => {
+const getLastDeviceStatus = () => {
     return DeviceStatusModel.find({}).sort({createdAt: -1}).limit(1);
+}
+
+const getAllDeviceStatus = () => {
+    return DeviceStatusModel.aggregate([
+        {$project: {_id: 0, ledStatus: 1, createdAt: 1}}
+    ]);
 }
 
 module.exports = {
     createNewDeviceStatus,
-    getLastDeviceStatus
+    getLastDeviceStatus,
+    getAllDeviceStatus,
 }

@@ -1,8 +1,13 @@
 <%- include('layout/header'); -%>
 <%- include('layout/navbar', {active: active}); -%>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha256-t9UJPrESBeG2ojKTIcFLPGF7nHi2vEc7f5A2KpH/UBU=" crossorigin="anonymous"></script>
 <div class="container"></div>
     <div class="row">
         <h1>Statistics</h1>
+        <% for (const status of statistics) { %>
+            <p> <%= status.ledStatus %> </p>
+            <p> <%= status.createdAt %> </p>
+        <% } %>
     </div>
 </div>
 <%- include('layout/footer'); -%>
