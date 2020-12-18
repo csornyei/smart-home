@@ -25,7 +25,6 @@ function updateLedStatus() {
             'Content-Type': 'application/json'
         }
     }).then(res => res.json().then(response => {
-        console.log(response);
         mainLedStatus = response[0].ledStatus;
         coloredLedStatuses = response[0].coloredLeds;
         updateMainLedUI();
@@ -61,7 +60,6 @@ function updateMainLedUI() {
 }
 
 function updateColoredLedStatuses() {
-    console.log(coloredLedStatuses);
     if (coloredLedStatuses.yellow) {
         yellowLedStatus.innerText = "On";
     } else {
