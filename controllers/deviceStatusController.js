@@ -14,7 +14,7 @@ const getLastDeviceStatus = () => {
 
 const getAllDeviceStatus = () => {
     return DeviceStatusModel.aggregate([
-        {$project: {_id: 0, ledStatus: 1, createdAt: 1}}
+        {$project: {_id: 0, ledStatus: 1, coloredLeds: 1, createdAt: 1}}
     ]);
 }
 
