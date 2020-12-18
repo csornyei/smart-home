@@ -11,8 +11,9 @@ router.get('/led', async (req, res) => {
 });
 
 router.post('/led', async (req, res) => {
-    const {ledStatus} = req.body;
-    const status = await deviceStatusController.createNewDeviceStatus(ledStatus);
+    const {ledStatus, coloredLeds} = req.body;
+    console.log(req.body);
+    const status = await deviceStatusController.createNewDeviceStatus({ledStatus, coloredLeds});
     res.send(status)
 });
 

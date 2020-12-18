@@ -1,7 +1,9 @@
 const turnOnButton = document.querySelector('#led-button-on');
 const turnOffButton = document.querySelector('#led-button-off');
 
-const ledStatuses = {
+let mainLedStatus = false;
+
+let coloredLedStatuses = {
     yellow: false,
     red: false,
     blue: false
@@ -15,7 +17,6 @@ const yellowLedButton = document.querySelector('#led-button-yellow');
 const redLedButton = document.querySelector('#led-button-red');
 const blueLedButton = document.querySelector('#led-button-blue');
 
-
 function updateLedStatus() {
     fetch('/api/led', {
         method: 'GET',
@@ -24,44 +25,54 @@ function updateLedStatus() {
             'Content-Type': 'application/json'
         }
     }).then(res => res.json().then(response => {
-        if (response[0].ledStatus) {
-            document.querySelector('#led-status').innerText = 'On';
-            turnOnButton.disabled = true;
-            turnOffButton.disabled = false;
-        } else {
-            document.querySelector('#led-status').innerText = 'Off';
-            turnOnButton.disabled = false;
-            turnOffButton.disabled = true;
-        }
+        console.log(response);
+        mainLedStatus = response[0].ledStatus;
+        coloredLedStatuses = response[0].coloredLeds;
+        updateMainLedUI();
+        updateColoredLedStatuses();
     }).catch(err => console.error(err)));
 }
 
-async function changeLed(ledStatus) {
-    const response = await fetch('/api/led', {
+async function postLedStatus() {
+    await fetch('/api/led', {
         method: 'POST',
         mode: 'same-origin',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            ledStatus
+            ledStatus: mainLedStatus,
+            coloredLeds: coloredLedStatuses
         })
     });
     updateLedStatus();
 }
 
+function updateMainLedUI() {
+    if (mainLedStatus) {
+        document.querySelector('#led-status').innerText = 'On';
+        turnOnButton.disabled = true;
+        turnOffButton.disabled = false;
+    } else {
+        document.querySelector('#led-status').innerText = 'Off';
+        turnOnButton.disabled = false;
+        turnOffButton.disabled = true;
+    }
+}
+
 function updateColoredLedStatuses() {
-    if (ledStatuses.yellow) {
+    console.log(coloredLedStatuses);
+    if (coloredLedStatuses.yellow) {
         yellowLedStatus.innerText = "On";
     } else {
         yellowLedStatus.innerText = "Off";
     }
-    if (ledStatuses.red) {
+    if (coloredLedStatuses.red) {
         redLedStatus.innerText = "On";
     } else {
         redLedStatus.innerText = "Off";
     }
-    if (ledStatuses.blue) {
+    if (coloredLedStatuses.blue) {
         blueLedStatus.innerText = "On";
     } else {
         blueLedStatus.innerText = "Off"
@@ -69,17 +80,21 @@ function updateColoredLedStatuses() {
 }
 
 function changeColoredLed(color) {
-    ledStatuses[color] = !ledStatuses[color];
-    updateColoredLedStatuses();
+    coloredLedStatuses[color] = !coloredLedStatuses[color];
+    postLedStatus();
 }
 
+function changeMainLed(newLedStatus) {
+    mainLedStatus = newLedStatus;
+    postLedStatus();
+}
 
 updateLedStatus();
 
 updateColoredLedStatuses();
 
-turnOffButton.addEventListener('click', () => changeLed(false));
-turnOnButton.addEventListener('click', () => changeLed(true));
+turnOffButton.addEventListener('click', () => changeMainLed(false));
+turnOnButton.addEventListener('click', () => changeMainLed(true));
 
 yellowLedButton.addEventListener('click', () => changeColoredLed('yellow'));
 redLedButton.addEventListener('click', () => changeColoredLed('red'));

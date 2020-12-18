@@ -1,8 +1,9 @@
 const DeviceStatusModel = require("../models/deviceStatus");
 
-const createNewDeviceStatus = (ledStatus) => {
+const createNewDeviceStatus = ({ledStatus, coloredLeds}) => {
     return new DeviceStatusModel({
         ledStatus,
+        coloredLeds,
         createdAt: Date.now()
     }).save();
 }
