@@ -3,7 +3,10 @@
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item <%= active ==='home' ? 'active' : '' %>">
-                    <a href="/" class="nav-link"">Home</a>
+                    <a href="/" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item <%= active ==='temperature' ? 'active' : '' %>">
+                    <a href="/temperature" class="nav-link">Temperature</a>
                 </li>
                 <li class="nav-item <%= active ==='stats' ? 'active' : '' %>">
                     <a href="/statistics" class="nav-link">Statistics</a>

@@ -21,4 +21,10 @@ router.get('/statistics', async (req, res) => {
     })
 });
 
+router.get('/temperature', async (req, res) => {
+    res.render('temperature', {
+        active: 'temperature'
+    })
+})
+
 module.exports = router;
