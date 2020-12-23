@@ -1,11 +1,21 @@
 const SensorMeasurement = require('../models/sensorMeasurement');
 
+const isNumeric = (str) => {
+    if (typeof str !== 'string') return false;
+    return !isNaN(str) && !isNaN(parseFloat(str));
+}
+
 const createNewMeasurement = ({temp, hum}) => {
-    return new SensorMeasurement({
-        temperature: temp,
-        humidity: hum,
-        createdAt: Date.now()
-    }).save();
+    if (isNumeric(temp) && isNumeric(hum)) {
+        return new SensorMeasurement({
+            temperature: temp,
+            humidity: hum,
+            createdAt: Date.now()
+        }).save();
+    }
+    return {
+        'error': 'Not valid measurement data!'
+    }
 }
 
 const getLatestMeasurement = () => {
